@@ -1,0 +1,745 @@
+cat > /mnt/user-data/outputs/index.html << 'ENDOFFILE'
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Jermaine Shirlee Jr.</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --gold:    #f5c842;
+      --navy:    #0d1117;
+      --steel:   #8ca9c9;
+      --white:   #ffffff;
+      --dim:     rgba(13, 17, 23, 0.78);
+      --dimmer:  rgba(13, 17, 23, 0.92);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+        font-family: 'Inter', sans-serif;
+        background: linear-gradient(rgba(13, 17, 23, 0.85), rgba(13, 17, 23, 0.85)), 
+              url('images/background.jpeg') center center / cover fixed no-repeat;
+        color: var(--white);
+        line-height: 1.7;
+}
+
+    /* ── NAV ── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.1rem 3rem;
+      background: rgba(13, 17, 23, 0.72);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(245, 200, 66, 0.12);
+    }
+
+    .nav-logo {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.25rem;
+      font-weight: 300;
+      letter-spacing: 0.08em;
+      color: var(--white);
+      text-decoration: none;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2.2rem;
+      list-style: none;
+    }
+
+    .nav-links a {
+      font-size: 0.8rem;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--steel);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover { color: var(--gold); }
+
+    /* ── HERO ── */
+    #hero {
+      position: relative;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      overflow: hidden;
+    }
+
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      background: url('background.jpg') center center / cover no-repeat;
+      filter: brightness(0.75);
+      z-index: 0;
+    }
+
+    /* radial glow matching the image's light source */
+    .hero-bg::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse 60% 55% at 50% 38%,
+        rgba(245, 200, 66, 0.08) 0%,
+        rgba(13, 17, 23, 0.35) 60%,
+        rgba(13, 17, 23, 0.70) 100%);
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 1;
+      max-width: 680px;
+      padding: 0 2rem;
+    }
+
+    .hero-eyebrow {
+      font-size: 0.72rem;
+      font-weight: 500;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 1.2rem;
+    }
+
+    .hero-name {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(3rem, 8vw, 5.5rem);
+      font-weight: 300;
+      line-height: 1.05;
+      letter-spacing: 0.02em;
+      color: var(--white);
+      margin-bottom: 1.4rem;
+    }
+
+    .hero-sub {
+      font-size: 1rem;
+      font-weight: 300;
+      color: rgba(255,255,255,0.72);
+      max-width: 460px;
+      margin: 0 auto 2.4rem;
+    }
+
+    .hero-cta {
+      display: inline-block;
+      padding: 0.75rem 2rem;
+      border: 1px solid var(--gold);
+      color: var(--gold);
+      font-size: 0.78rem;
+      font-weight: 500;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      text-decoration: none;
+      transition: background 0.2s, color 0.2s;
+    }
+
+    .hero-cta:hover {
+      background: var(--gold);
+      color: var(--navy);
+    }
+
+    .scroll-hint {
+      position: absolute;
+      bottom: 2rem;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.5rem;
+      color: rgba(255,255,255,0.35);
+      font-size: 0.68rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      animation: fadeFloat 2.4s ease-in-out infinite;
+    }
+
+    .scroll-hint::after {
+      content: '';
+      display: block;
+      width: 1px;
+      height: 2.5rem;
+      background: linear-gradient(to bottom, rgba(245,200,66,0.5), transparent);
+    }
+
+    @keyframes fadeFloat {
+      0%, 100% { opacity: 0.4; transform: translateX(-50%) translateY(0); }
+      50%       { opacity: 0.9; transform: translateX(-50%) translateY(6px); }
+    }
+
+    /* ── SECTIONS ── */
+    section {
+      padding: 6rem 0;
+    }
+
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 0 2.5rem;
+    }
+
+    .section-label {
+      font-size: 0.68rem;
+      font-weight: 500;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 0.8rem;
+    }
+
+    .section-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(2rem, 5vw, 3rem);
+      font-weight: 300;
+      color: var(--white);
+      margin-bottom: 2.5rem;
+      line-height: 1.15;
+    }
+
+    .divider {
+      width: 3rem;
+      height: 1px;
+      background: var(--gold);
+      margin-bottom: 2.5rem;
+      opacity: 0.5;
+    }
+
+    /* ── ABOUT ── */
+    #about { background: transparent; }
+
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      align-items: start;
+    }
+
+    .about-text p {
+      color: rgba(255,255,255,0.7);
+      font-size: 0.95rem;
+      font-weight: 300;
+      margin-bottom: 1.1rem;
+    }
+
+/* Featured Full-Width Project Layout */
+.project-card.featured {
+  grid-column: 1 / -1; /* Spans both columns */
+  display: grid;
+  grid-template-columns: 1fr 1.1fr;
+  gap: 2.5rem;
+  background: rgba(13, 17, 23, 0.6);
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(245, 200, 66, 0.2);
+  border-radius: 4px;
+  overflow: hidden;
+  padding: 2.5rem;
+}
+
+.project-card.featured:hover {
+  border-color: var(--gold);
+}
+
+/* Image Showcase Box */
+.project-media {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.project-img-wrapper {
+  width: 100%;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 4px;
+  overflow: hidden;
+  background: #000;
+}
+
+.project-img-wrapper img {
+  width: 100%;
+  height: auto;
+  display: block;
+  opacity: 0.9;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.project-img-wrapper:hover img {
+  opacity: 1;
+  transform: scale(1.02);
+}
+
+.project-img-caption {
+  font-size: 0.7rem;
+  color: var(--steel);
+  font-style: italic;
+  text-align: center;
+}
+
+/* Detailed Highlights */
+.project-details-list {
+  margin-top: 1rem;
+  padding-left: 1rem;
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 0.85rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.project-details-list li::marker {
+  color: var(--gold);
+}
+
+@media (max-width: 850px) {
+  .project-card.featured {
+    grid-template-columns: 1fr;
+    padding: 1.5rem;
+  }
+}
+
+    .about-text p:last-child { margin-bottom: 0; }
+
+    .about-facts {
+      display: flex;
+      flex-direction: column;
+      gap: 1.4rem;
+    }
+
+    .fact {
+      border-left: 2px solid rgba(245,200,66,0.3);
+      padding-left: 1.2rem;
+    }
+
+    .fact-label {
+      font-size: 0.68rem;
+      font-weight: 500;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 0.25rem;
+    }
+
+    .fact-value {
+      font-size: 0.9rem;
+      color: rgba(255,255,255,0.75);
+      font-weight: 300;
+    }
+
+    /* ── EXPERIENCE ── */
+    #experience { background: rgba(255,255,255,0.02); }
+
+    .exp-list {
+      display: flex;
+      flex-direction: column;
+      gap: 2.5rem;
+    }
+
+    .exp-item {
+      display: grid;
+      grid-template-columns: 160px 1fr;
+      gap: 2rem;
+      padding-bottom: 2.5rem;
+      border-bottom: 1px solid rgba(255,255,255,0.07);
+    }
+
+    .exp-item:last-child { border-bottom: none; padding-bottom: 0; }
+
+    .exp-meta {
+      padding-top: 0.25rem;
+    }
+
+    .exp-date {
+      font-size: 0.72rem;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      color: var(--gold);
+      text-transform: uppercase;
+      margin-bottom: 0.3rem;
+    }
+
+    .exp-org {
+      font-size: 0.78rem;
+      color: var(--steel);
+      font-weight: 300;
+    }
+
+    .exp-role {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.35rem;
+      font-weight: 400;
+      color: var(--white);
+      margin-bottom: 0.8rem;
+      line-height: 1.2;
+    }
+
+    .exp-desc {
+      font-size: 0.88rem;
+      color: rgba(255,255,255,0.62);
+      font-weight: 300;
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.45rem;
+    }
+
+    .exp-desc li::before {
+      content: '— ';
+      color: var(--gold);
+      opacity: 0.6;
+    }
+
+    /* ── PROJECTS ── */
+    #projects { background: transparent; }
+
+    .projects-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+    }
+
+    .project-card {
+      border: 1px solid rgba(255,255,255,0.08);
+      padding: 2rem;
+      transition: border-color 0.25s, transform 0.25s;
+      text-decoration: none;
+      display: block;
+    }
+
+    .project-card:hover {
+      border-color: rgba(245,200,66,0.4);
+      transform: translateY(-3px);
+    }
+
+    .project-tag {
+      font-size: 0.65rem;
+      font-weight: 500;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 0.8rem;
+    }
+
+    .project-name {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.35rem;
+      font-weight: 400;
+      color: var(--white);
+      margin-bottom: 0.7rem;
+      line-height: 1.2;
+    }
+
+    .project-desc {
+      font-size: 0.83rem;
+      color: rgba(255,255,255,0.55);
+      font-weight: 300;
+      line-height: 1.65;
+    }
+
+    .project-link {
+      display: inline-block;
+      margin-top: 1.2rem;
+      font-size: 0.72rem;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--gold);
+      text-decoration: none;
+    }
+
+    /* ── SKILLS ── */
+    .skills-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.6rem;
+      margin-top: 2rem;
+    }
+
+    .skill-tag {
+      font-size: 0.72rem;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      padding: 0.35rem 0.85rem;
+      border: 1px solid rgba(140, 169, 201, 0.3);
+      color: var(--steel);
+      text-transform: uppercase;
+    }
+
+    /* ── CONTACT ── */
+    #contact {
+      background: rgba(255,255,255,0.02);
+      text-align: center;
+    }
+
+    #contact .section-title {
+      max-width: 480px;
+      margin: 0 auto 1rem;
+    }
+
+    .contact-sub {
+      font-size: 0.92rem;
+      color: rgba(255,255,255,0.5);
+      font-weight: 300;
+      max-width: 400px;
+      margin: 0 auto 2.5rem;
+    }
+
+    .contact-links {
+      display: flex;
+      justify-content: center;
+      gap: 1.5rem;
+      flex-wrap: wrap;
+    }
+
+    .contact-link {
+      display: inline-block;
+      padding: 0.75rem 2rem;
+      font-size: 0.78rem;
+      font-weight: 500;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      text-decoration: none;
+      transition: background 0.2s, color 0.2s, border-color 0.2s;
+    }
+
+    .contact-link.primary {
+      background: var(--gold);
+      color: var(--navy);
+      border: 1px solid var(--gold);
+    }
+
+    .contact-link.primary:hover {
+      background: transparent;
+      color: var(--gold);
+    }
+
+    .contact-link.secondary {
+      border: 1px solid rgba(255,255,255,0.2);
+      color: rgba(255,255,255,0.7);
+    }
+
+    .contact-link.secondary:hover {
+      border-color: var(--gold);
+      color: var(--gold);
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      padding: 2rem;
+      text-align: center;
+      font-size: 0.72rem;
+      color: rgba(255,255,255,0.2);
+      letter-spacing: 0.08em;
+      border-top: 1px solid rgba(255,255,255,0.05);
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 700px) {
+      nav { padding: 1rem 1.5rem; }
+      .nav-links { gap: 1.2rem; }
+      .about-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+      .exp-item { grid-template-columns: 1fr; gap: 0.5rem; }
+      .projects-grid { grid-template-columns: 1fr; }
+      section { padding: 4rem 0; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .scroll-hint { animation: none; }
+      html { scroll-behavior: auto; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <a href="#hero" class="nav-logo">Jermaine Shirlee Jr.</a>
+    <ul class="nav-links">
+      <li><a href="#experience">Experience</a></li>
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#resume">Resume</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </nav>
+
+  <!-- HERO -->
+  <section id="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-content">
+      <p class="hero-eyebrow">Undergraduate Computer Science student at University of Illinois Urbana-Champaign </p>
+      <h1 class="hero-name">Jermaine<br>Shirlee Jr.</h1>
+      <p class="hero-sub">Interested in Machine Learning, Software Engineering, and Natural Language Processing.</p>
+    </div>
+  </section>
+
+  <!-- EXPERIENCE -->
+  <section id="experience">
+    <div class="container">
+      <p class="section-label">Work History</p>
+      <h2 class="section-title">Experience</h2>
+      <div class="divider"></div>
+      <div class="exp-list">
+
+        <div class="exp-item">
+          <div class="exp-meta">
+            <div class="exp-date">June – Aug 2026</div>
+            <div class="exp-org">Fermilab · Batavia, IL</div>
+          </div>
+          <div>
+            <div class="exp-role">Machine Learning Research Intern</div>
+            <ul class="exp-desc">
+              <li>Trained a ResNet18 CNN to predict muon beam initial momentum from 2D spatial distribution histograms, achieving MAE &lt; 1 MeV/c</li>
+              <li>Developed a C++ data pipeline to process G4Beamline simulation output and generate 100 statistically varied training samples per momentum value</li>
+              <li>Simulated muon beams across 125–185 MeV/c using G4Beamline (Geant4), applying a 99% transmission threshold for data quality</li>
+              <li>Published research paper: "Reconstruction of Six-Dimensional Phase Space" — FERMILAB-PUB-26-0490-STUDENT</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="exp-item">
+          <div class="exp-meta">
+            <div class="exp-date">June – Aug 2025</div>
+            <div class="exp-org">Fermilab · Batavia, IL</div>
+          </div>
+          <div>
+            <div class="exp-role">Summer Exchange Program Intern</div>
+            <ul class="exp-desc">
+              <li>Selected for competitive DOE-funded cohort across Fermilab and Brookhaven National Laboratory</li>
+              <li>Studied particle physics, climate modeling, AI/ML, and quantum computing through lectures and lab projects</li>
+              <li>Collaborated with lab scientists to analyze research challenges and present findings</li>
+            </ul>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- PROJECTS -->
+  <section id="projects">
+    <div class="container">
+      <p class="section-label">Selected Work</p>
+      <h2 class="section-title">Projects</h2>
+      <div class="divider"></div>
+      <div class="projects-grid">
+
+        <article class="project-card featured">
+          <div class="project-content">
+            <div class="project-tag">June 2026-August 2026</div>
+            <h3 class="project-name">Reconstruction of 6D Phase Space</h3>
+            <p class="project-desc">
+              Tested capabilities of machine learning using a ResNet18 CNN to predict particle beam average initial momentum directly from 2D spatial distribution histograms captured by virtual beam detectors.
+            </p>
+            
+            <ul class="project-details-list">
+              <li><strong>Data Pipeline:</strong> Constructed a C++ macro, using G4Beamline simulations across 125-185 MeV/c, with 5 MeV/c increments, as input.</li>
+              <li><strong>Optimization:</strong> Densified training sets in 2 MeV/c intervals around most innacurate testing points.</li>
+              <li><strong>Result:</strong> Achieved a Mean Absolute Error (MAE) of 0.966 MeV/c across test distributions.</li>
+            </ul>
+
+            <div style="margin-top: 3.5rem;">
+              <span class="skill-tag">Python</span>
+              <span class="skill-tag">C++</span>
+              <span class="skill-tag">Java</span>
+              <span class="skill-tag">PyTorch</span>
+              <span class="skill-tag">ResNet18</span>
+              <span class="skill-tag">OpenCV</span>
+              <span class="skill-tag">ROOT</span>
+              <span class="skill-tag">G4Beamline</span>
+              <span class="skill-tag">NumPy</span>
+              <span class="skill-tag">Matplotlib</span>
+              <span class="skill-tag">pandas</span>
+              <span class="skill-tag">Git</span>
+            </div>
+          </div>
+
+          <div class="project-media">
+            <div class="project-img-wrapper">
+              <img src="images/resnet18-error.png" alt="ResNet18 Prediction Error vs Initial Momentum" />
+            </div>
+            <p class="project-img-caption">Figure: Model absolute prediction error across initial momentum range 125–185 MeV/c.</p>
+            <div class="project-img-wrapper">
+              <img src="images/2d-histogram.png" alt="2D Histogram C++ output; CNN png input" />
+            </div>
+            <p class="project-img-caption">Figure: 2D Histograms, output of C++; x-axis of virtual detector positions, y axis of spatial distribution, z axis of event intensity.</p>
+          </div>
+        </article>
+
+        <div class="project-card" style="grid-column: 1 / -1; cursor: default; opacity: 0.5; text-align: center;">
+          <div class="project-tag">Coming Soon</div>
+          <div class="project-name">Future Coursework & Individual Projects</div>
+          <p class="project-desc">Additional projects will be featured here as they are created.</p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- RESUME SECTION --> 
+  <section id="resume" style="display: flex; justify-content: center; align-items: center; min-height: 100vh; padding: 2rem 0;"> 
+   <div class="container" style="width: 100%; max-width: 1200px; margin: 0 auto; text-align: center;"> 
+    
+     <p class="section-label">Last Updated August 2026</p> 
+     <h2 class="section-title">Official Resume</h2> 
+    
+     <!-- Centered Divider -->
+     <div class="divider" style="margin: 0 auto 3rem auto; width: 50px;"></div> 
+    
+     <!-- Centered Wrapper -->
+       <div class="resume-wrapper" style="display: flex; flex-direction: column; align-items: center; justify-content: center; width: 100%;"> 
+      
+        <!-- Larger, Centered PDF Embedded Container --> 
+        <div class="pdf-container" style="width: 100%; max-width: 1000px; height: 80vh; min-height: 800px; margin: 0 auto; display: flex; justify-content: center;"> 
+        <embed src="images/jermaine-resume.pdf" type="application/pdf" style="width: 100%; height: 100%; border: none;" /> 
+     </div> 
+      
+      <!-- Centered Action Buttons --> 
+      <div class="resume-actions" style="margin-top: 2rem; display: flex; justify-content: center;"> 
+        <a href="images/jermaine-resume.pdf" target="_blank" class="hero-cta" style="display: inline-block; padding: 0.75rem 2rem;">View Full PDF</a> 
+      </div> 
+      
+      <!-- Mobile Fallback Link --> 
+      <p class="mobile-pdf-link"><br> </p> 
+     </div> 
+     </div> 
+   </section>
+
+
+   <!-- CONTACT -->
+  <section id="contact">
+    <div class="container">
+      <p class="section-label">Socials</p>
+      <h2 class="section-title">Contact Me</h2>
+      <div class="divider" style="margin: 0 auto 1.5rem;"></div>
+      <p class="contact-sub">Open to research opportunities, internships, and conversations about ML engineering and AI.</p>
+      <div class="contact-links">
+        <a href="mailto:jayeushirlee06@gmail.com" class="contact-link primary">Email Me</a>
+        <a href="https://linkedin.com/in/jermaine-shirlee-jr-24471b2b2" target="_blank" class="contact-link secondary">LinkedIn</a>
+        <a href="https://github.com/jermafde" target="_blank" class="contact-link secondary">GitHub</a>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- FOOTER -->
+  <footer>
+    <p>© 2026 Jermaine Shirlee Jr.</p>
+  </footer>
+
+</body>
+</html>
